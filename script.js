@@ -37,7 +37,7 @@ function buttonHandler(event) {
   if(event.target.classList.contains("digit")) {
     if( overallInput.at(overallInput.length - 1)==='+' || overallInput.at(overallInput.length - 1)==='-' 
         || overallInput.at(overallInput.length - 1)==='*' || overallInput.at(overallInput.length - 1)==='/') {
-      display.textContent = ""; 
+      display.textContent = "";   // reset
     }
     display.textContent += event.target.textContent; 
     overallInput += event.target.textContent; 
@@ -47,6 +47,12 @@ function buttonHandler(event) {
     operator = event.target.textContent; 
     operand1 = Number(display.textContent); 
     overallInput += event.target.textContent; 
+  }
+  else if(event.target.textContent === '=') {
+    operand2 = Number(display.textContent);
+    let result = operate(operand1, operand2, operator); 
+    display.textContent = result; 
+    overallInput = String(operand1); 
   }
 }
 

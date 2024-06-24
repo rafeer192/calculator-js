@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+  padding: 0px; 
+  margin: 0px;
+  color: white;
+}
+
+body {
+  background-color: aliceblue;
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 400px;
+  min-height: 500px;
+  margin: 40px auto;
+  border: 5px solid black; 
+  padding: 8px;
+  background-color: black;
+  border-radius: 8px;
+}
+
+.calculator .display {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 80px;
+  max-height: 80px; 
+  border: 3px solid black;
+  font-size: 60px;
+  background-color: rgb(55, 54, 54);
+  color: white;
+  font-weight: 600;
+  padding: 6px;
+  align-self: stretch;
+  margin-bottom: 4px;
+  flex: 1;
+}
+
+.calculator button {
+  flex: 1;
+  min-height: 80px;
+  border-radius: 0;
+  border: 1px solid black;
+  font-size: 40px;
+}
+
+.calculator .extended {
+  flex-grow: 2.025;
+}
+
+.calculator .buttons-wrapper {
+  align-self: stretch; 
+  border: 1px solid black;
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.row-0, .row-1, .row-2, .row-3, .row-4 {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons-wrapper button.operator, .equals {
+  background-color: rgb(212, 138, 0);
+}
+
+.digit, .decimal { 
+  background-color: gray;
+}
+
+.row-0 button {
+  background-color: rgb(80, 80, 80);
+}
+

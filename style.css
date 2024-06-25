@@ -82,3 +82,7 @@ body {
 .buttons-wrapper .active.operator {
   background-color: rgb(118, 77, 0);
 }
+
+.active.equals:active {
+  background-color: rgb(118, 77, 0);
+}

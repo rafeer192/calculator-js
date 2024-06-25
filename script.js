@@ -60,8 +60,11 @@ function buttonHandler(event) {
     }
   }
   else if(event.target.textContent === '=') {
-    if(overallInput.includes('+')||overallInput.includes('-')||overallInput.includes('*')||overallInput.includes('/')) {
-      operand2 = Number(display.textContent);
+    operand2 = Number(display.textContent);
+    if(operator === '/' && operand2 === 0) {
+      display.textContent = "nope, hit AC"; 
+    }
+    else if(overallInput.includes('+')||overallInput.includes('-')||overallInput.includes('*')||overallInput.includes('/')) {
       let result = operate(operand1, operand2, operator); 
       let resultLength = (result+'').length; 
       if( resultLength > MAX_DISPLAY_SIZE && Number.isInteger(result) ) {
@@ -71,13 +74,11 @@ function buttonHandler(event) {
       }
       display.textContent = result; 
       overallInput = String(result); 
-    }
+    } 
   }
   else if(event.target.classList.contains("clear")) {
-    //if(!overallInput.includes('+')&& !overallInput.includes('-')&& !overallInput.includes('*')&& !overallInput.includes('/')) {
-      display.textContent = ""; 
-      overallInput = "";
-    //} 
+    display.textContent = ""; 
+    overallInput = "";
   }
   else if(event.target.classList.contains("decimal")) {
     if(!display.textContent.includes('.') && display.textContent.length <= MAX_DISPLAY_SIZE) {

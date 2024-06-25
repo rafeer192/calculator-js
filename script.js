@@ -63,6 +63,12 @@ function buttonHandler(event) {
     if(overallInput.includes('+')||overallInput.includes('-')||overallInput.includes('*')||overallInput.includes('/')) {
       operand2 = Number(display.textContent);
       let result = operate(operand1, operand2, operator); 
+      let resultLength = (result+'').length; 
+      if( resultLength > MAX_DISPLAY_SIZE && Number.isInteger(result) ) {
+        result = result.toExponential(4);
+      } else if( resultLength > MAX_DISPLAY_SIZE && !Number.isInteger(result) ) {
+        result = result.toFixed(resultLength - MAX_DISPLAY_SIZE); 
+      }
       display.textContent = result; 
       overallInput = String(result); 
     }

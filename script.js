@@ -60,16 +60,18 @@ function buttonHandler(event) {
     }
   }
   else if(event.target.textContent === '=') {
-    operand2 = Number(display.textContent);
-    let result = operate(operand1, operand2, operator); 
-    display.textContent = result; 
-    overallInput = String(result); 
+    if(overallInput.includes('+')||overallInput.includes('-')||overallInput.includes('*')||overallInput.includes('/')) {
+      operand2 = Number(display.textContent);
+      let result = operate(operand1, operand2, operator); 
+      display.textContent = result; 
+      overallInput = String(result); 
+    }
   }
   else if(event.target.classList.contains("clear")) {
-    if(!overallInput.includes('+')&& !overallInput.includes('-')&& !overallInput.includes('*')&& !overallInput.includes('/')) {
+    //if(!overallInput.includes('+')&& !overallInput.includes('-')&& !overallInput.includes('*')&& !overallInput.includes('/')) {
       display.textContent = ""; 
       overallInput = "";
-    } 
+    //} 
   }
 }
 

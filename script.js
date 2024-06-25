@@ -79,6 +79,17 @@ function buttonHandler(event) {
       overallInput = "";
     //} 
   }
+  else if(event.target.classList.contains("decimal")) {
+    if(!display.textContent.includes('.') && display.textContent.length <= MAX_DISPLAY_SIZE) {
+        //not already decimal in number, fits
+      display.textContent += '.'; 
+      overallInput += '.';
+    } else if(overallInput.endsWith('+')|| overallInput.endsWith('-')|| 
+              overallInput.endsWith('*') || overallInput.endsWith('/'))  {
+      display.textContent = '0.'; 
+      overallInput += '.';
+    }
+  }
 }
 
 

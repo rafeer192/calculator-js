@@ -86,3 +86,8 @@ body {
 .active.equals:active {
   background-color: rgb(118, 77, 0);
 }
+
+div.calculator button.operator.special {
+  display: flex; 
+  justify-content: center;
+}

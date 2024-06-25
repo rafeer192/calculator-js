@@ -1,3 +1,4 @@
+// MATH FUNCTIONS
 function add(num1, num2) {
   return num1 + num2; 
 }
@@ -17,7 +18,7 @@ function divide(num1, num2) {
 function operate(num1, num2, symbol) {
   if(symbol === '+') {
     return add(num1, num2); 
-  } else if(symbol === '-') {
+  } else if(symbol === '_') {
     return subtract(num1, num2); 
   } else if(symbol === '*') {
     return multiply(num1, num2); 
@@ -48,7 +49,7 @@ function buttonHandler(event) {
   else if(event.target.classList.contains("operator")) {
     operatorSubhandler(event); 
   }
-  else if(event.target.classList.contains('=')) {
+  else if(event.target.classList.contains("equals")) {
     equalsSubhandler(event); 
   }
   else if(event.target.classList.contains("clear")) {
@@ -58,10 +59,15 @@ function buttonHandler(event) {
   else if(event.target.classList.contains("decimal")) {
     decimalSubhandler(event); 
   }
+  else if(event.target.classList.contains("negative")) {
+    negativeSubhandler(event); 
+  }
 }
 
+// SUBHANDLERS
+
 function digitSubhandler(event) {
-  if( overallInput.endsWith('+') || overallInput.endsWith('-') || 
+  if( overallInput.endsWith('+') || overallInput.endsWith('_') || 
       overallInput.endsWith('*') || overallInput.endsWith('/')) {
     display.textContent = "";   // reset
   }
@@ -71,13 +77,14 @@ function digitSubhandler(event) {
   }
 }
 
+
 function operatorSubhandler(event) {
   operator = event.target.textContent; 
   operand1 = Number(display.textContent); 
   if(!overallInput.includes('+')&&!overallInput.includes('-')&&!overallInput.includes('*')&&!overallInput.includes('/')) { 
     overallInput += event.target.textContent; 
   } else {
-    overallInput = overallInput.replace(/[+|*|/|-]/g, event.target.textContent); 
+    overallInput = overallInput.replace(/[+|*|/|_]/g, event.target.textContent); 
   }
 }
 
@@ -86,7 +93,7 @@ function equalsSubhandler(event) {
   if(operator === '/' && operand2 === 0) {
     display.textContent = "nope, hit AC"; 
   }
-  else if(overallInput.includes('+')||overallInput.includes('-')||overallInput.includes('*')||overallInput.includes('/')) {
+  else if(overallInput.includes('+')||overallInput.includes('_')||overallInput.includes('*')||overallInput.includes('/')) {
     let result = operate(operand1, operand2, operator); 
     let resultLength = (result+'').length; 
     if(resultLength > MAX_DISPLAY_SIZE ) {
@@ -107,7 +114,7 @@ function decimalSubhandler(event) {
     display.textContent += '.'; 
     overallInput += '.';
   } 
-  else if(overallInput.endsWith('+')|| overallInput.endsWith('-') || 
+  else if(overallInput.endsWith('+')|| overallInput.endsWith('_') || 
           overallInput.endsWith('*') || overallInput.endsWith('/'))  {
     display.textContent = '0.'; 
     overallInput += '.';

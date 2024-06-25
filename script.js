@@ -26,33 +26,50 @@ function operate(num1, num2, symbol) {
   }
 }
 
+const MAX_DISPLAY_SIZE = 10; 
 let operand1, operand2; 
 let operator; 
 let overallInput = "";    // entire sequence of chars (entire expression)
 const display = document.querySelector("div.display"); 
 const allBtns = document.querySelectorAll(".calculator button"); 
+display.textContent = "";
 allBtns.forEach( (btn) => btn.addEventListener("click", buttonHandler)); 
 
 function buttonHandler(event) {
+  const activeButton = document.querySelector("button.active"); 
+  if(activeButton) activeButton.classList.remove("active"); 
+  event.target.classList.toggle("active");
+
   if(event.target.classList.contains("digit")) {
     if( overallInput.at(overallInput.length - 1)==='+' || overallInput.at(overallInput.length - 1)==='-' 
         || overallInput.at(overallInput.length - 1)==='*' || overallInput.at(overallInput.length - 1)==='/') {
       display.textContent = "";   // reset
     }
-    display.textContent += event.target.textContent; 
-    overallInput += event.target.textContent; 
+    if(display.textContent.length <= MAX_DISPLAY_SIZE) {
+      display.textContent += event.target.textContent; 
+      overallInput += event.target.textContent; 
+    }
   } 
-  else if(event.target.classList.contains("operator") &&!overallInput.includes('+') && !overallInput.includes('-')
-          && !overallInput.includes('*') && !overallInput.includes('/')) {
+  else if(event.target.classList.contains("operator")) {
     operator = event.target.textContent; 
     operand1 = Number(display.textContent); 
-    overallInput += event.target.textContent; 
+    if(!overallInput.includes('+')&& !overallInput.includes('-')&& !overallInput.includes('*')&& !overallInput.includes('/')) {
+      overallInput += event.target.textContent; 
+    } else {
+      overallInput = overallInput.replace(/[+|*|/|-]/g, event.target.textContent); 
+    }
   }
   else if(event.target.textContent === '=') {
     operand2 = Number(display.textContent);
     let result = operate(operand1, operand2, operator); 
     display.textContent = result; 
-    overallInput = String(operand1); 
+    overallInput = String(result); 
+  }
+  else if(event.target.classList.contains("clear")) {
+    if(!overallInput.includes('+')&& !overallInput.includes('-')&& !overallInput.includes('*')&& !overallInput.includes('/')) {
+      display.textContent = ""; 
+      overallInput = "";
+    } 
   }
 }
 

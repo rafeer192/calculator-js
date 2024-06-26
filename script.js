@@ -1,36 +1,8 @@
-// MATH FUNCTIONS
-function add(num1, num2) {
-  return num1 + num2; 
-}
-
-function subtract(num1, num2) {
-  return num1 - num2; 
-}
-
-function multiply(num1, num2) {
-  return num1 * num2; 
-}
-
-function divide(num1, num2) {
-  return num1 / num2; 
-}
-
-function operate(num1, num2, symbol) {
-  if(symbol === '+') {
-    return add(num1, num2); 
-  } else if(symbol === '_') {
-    return subtract(num1, num2); 
-  } else if(symbol === '*') {
-    return multiply(num1, num2); 
-  } else if(symbol === '/') {
-    return divide(num1, num2); 
-  }
-}
-
 const MAX_DISPLAY_SIZE = 10; 
 let operand1, operand2; 
 let operator; 
 let overallInput = "";    // entire sequence of chars (entire expression)
+const negativeBtn = document.querySelector("button.negative"); 
 const display = document.querySelector("div.display"); 
 const allBtns = document.querySelectorAll(".calculator button"); 
 display.textContent = "";
@@ -53,8 +25,7 @@ function buttonHandler(event) {
     equalsSubhandler(event); 
   }
   else if(event.target.classList.contains("clear")) {
-    display.textContent = ""; 
-    overallInput = "";
+    clearSubhandler(event); 
   }
   else if(event.target.classList.contains("decimal")) {
     decimalSubhandler(event); 
@@ -80,7 +51,6 @@ function digitSubhandler(event) {
   }
 }
 
-
 function operatorSubhandler(event) {
   operator = event.target.textContent; 
   operand1 = Number(display.textContent); 
@@ -88,6 +58,9 @@ function operatorSubhandler(event) {
     overallInput += event.target.textContent; 
   } else {
     overallInput = overallInput.replace(/[+|*|/|_]/g, event.target.textContent); 
+  }
+  if(negativeBtn.classList.contains("chosen")) {
+    negativeBtn.classList.remove("chosen"); 
   }
 }
 
@@ -109,6 +82,14 @@ function equalsSubhandler(event) {
     display.textContent = result; 
     overallInput = String(result); 
   }
+}
+
+function clearSubhandler(event) {
+  if(negativeBtn.classList.contains("chosen")) {
+    negativeBtn.classList.remove("chosen"); 
+  }
+  display.textContent = ""; 
+  overallInput = "";
 }
 
 function decimalSubhandler(event) {
@@ -137,5 +118,35 @@ function negativeSubhandler(event) {
   else {
     display.textContent = display.textContent.replace('-', ''); 
     overallInput = overallInput.replace('-', '');
+  }
+}
+
+// ----------------------------
+// MATH FUNCTIONS
+function add(num1, num2) {
+  return num1 + num2; 
+}
+
+function subtract(num1, num2) {
+  return num1 - num2; 
+}
+
+function multiply(num1, num2) {
+  return num1 * num2; 
+}
+
+function divide(num1, num2) {
+  return num1 / num2; 
+}
+
+function operate(num1, num2, symbol) {
+  if(symbol === '+') {
+    return add(num1, num2); 
+  } else if(symbol === '_') {
+    return subtract(num1, num2); 
+  } else if(symbol === '*') {
+    return multiply(num1, num2); 
+  } else if(symbol === '/') {
+    return divide(num1, num2); 
   }
 }

@@ -6,7 +6,7 @@ const negativeBtn = document.querySelector("button.negative");
 const display = document.querySelector("div.display"); 
 const allBtns = document.querySelectorAll(".calculator button"); 
 display.textContent = "";
-allBtns.forEach( (btn) => btn.addEventListener("click", buttonHandler)); 
+allBtns.forEach( (btn) => btn.addEventListener("click", buttonHandler) ); 
 
 function buttonHandler(event) {
   const activeButton = document.querySelector("button.active"); 
@@ -32,6 +32,9 @@ function buttonHandler(event) {
   }
   else if(event.target.classList.contains("negative")) {
     negativeSubhandler(event); 
+  }
+  else if(event.target.classList.contains("delete")) {
+    deleteSubhandler(event); 
   }
 }
 
@@ -118,6 +121,21 @@ function negativeSubhandler(event) {
   else {
     display.textContent = display.textContent.replace('-', ''); 
     overallInput = overallInput.replace('-', '');
+  }
+}
+
+function deleteSubhandler(event) {
+  if(overallInput.endsWith('+')||overallInput.endsWith('_')||overallInput.endsWith('*')||overallInput.endsWith('/')) {
+    const activeOperator = document.querySelector(".active.operator"); 
+    if(activeOperator) {
+      activeOperator.classList.remove("active"); 
+    }
+  }
+  if(overallInput) {
+    overallInput = overallInput.slice(0, overallInput.length-1);
+  }
+  if(display.textContent) {
+    display.textContent = display.textContent.slice(0, display.textContent.length-1);
   }
 }
 

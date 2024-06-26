@@ -67,10 +67,13 @@ function buttonHandler(event) {
 // SUBHANDLERS
 
 function digitSubhandler(event) {
-  if( overallInput.endsWith('+') || overallInput.endsWith('_') || 
+  if( overallInput.endsWith('+') || overallInput.endsWith('_') ||
       overallInput.endsWith('*') || overallInput.endsWith('/')) {
     display.textContent = "";   // reset
+  } else if(overallInput.endsWith('-')) {
+    display.textContent = '-';
   }
+
   if(display.textContent.length <= MAX_DISPLAY_SIZE) {
     display.textContent += event.target.textContent; 
     overallInput += event.target.textContent; 
@@ -81,7 +84,7 @@ function digitSubhandler(event) {
 function operatorSubhandler(event) {
   operator = event.target.textContent; 
   operand1 = Number(display.textContent); 
-  if(!overallInput.includes('+')&&!overallInput.includes('-')&&!overallInput.includes('*')&&!overallInput.includes('/')) { 
+  if(!overallInput.includes('+')&&!overallInput.includes('_')&&!overallInput.includes('*')&&!overallInput.includes('/')) { 
     overallInput += event.target.textContent; 
   } else {
     overallInput = overallInput.replace(/[+|*|/|_]/g, event.target.textContent); 
@@ -118,5 +121,21 @@ function decimalSubhandler(event) {
           overallInput.endsWith('*') || overallInput.endsWith('/'))  {
     display.textContent = '0.'; 
     overallInput += '.';
+  }
+}
+
+function negativeSubhandler(event) {
+  event.target.classList.toggle("chosen"); 
+  if(event.target.classList.contains("chosen")) {
+    display.textContent = display.textContent.padStart(display.textContent.length+1, '-'); 
+    if(!overallInput.includes('+')&&!overallInput.includes('_')&&!overallInput.includes('*')&&!overallInput.includes('/')) {
+      overallInput = overallInput.padStart(overallInput.length+1, '-'); 
+    } else {
+      overallInput = overallInput.replace(operator, `${operator}-`); 
+    }
+  } 
+  else {
+    display.textContent = display.textContent.replace('-', ''); 
+    overallInput = overallInput.replace('-', '');
   }
 }

@@ -6,7 +6,9 @@ const negativeBtn = document.querySelector("button.negative");
 const display = document.querySelector("div.display"); 
 const allBtns = document.querySelectorAll(".calculator button"); 
 display.textContent = "";
-allBtns.forEach( (btn) => btn.addEventListener("click", buttonHandler) ); 
+allBtns.forEach( (btn) => {
+  btn.addEventListener("click", buttonHandler); 
+}); 
 
 function buttonHandler(event) {
   const activeButton = document.querySelector("button.active"); 
@@ -37,6 +39,82 @@ function buttonHandler(event) {
     deleteSubhandler(event); 
   }
 }
+
+let clickEvent = new Event("click"); 
+
+document.addEventListener("keydown", (event) => {
+  switch(event.key) {
+    case '0':
+      const zeroBtn = document.querySelector(".zero"); 
+      zeroBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '1':
+      const oneBtn = document.querySelector(".one"); 
+      oneBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '2':
+      const twoBtn = document.querySelector(".two"); 
+      twoBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '3':
+      const threeBtn = document.querySelector(".three"); 
+      threeBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '4':
+      const fourBtn = document.querySelector(".four"); 
+      fourBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '5':
+      const fiveBtn = document.querySelector(".five"); 
+      fiveBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '6':
+      const sixBtn = document.querySelector(".six"); 
+      sixBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '7': 
+      const sevenBtn = document.querySelector(".seven"); 
+      sevenBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '8':
+      const eightBtn = document.querySelector(".eight"); 
+      eightBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '9':
+      const nineBtn = document.querySelector(".nine"); 
+      nineBtn.dispatchEvent(clickEvent); 
+      break;
+    case 'Backspace':
+      const delBtn = document.querySelector(".delete"); 
+      delBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '.': 
+      const decimalBtn = document.querySelector(".decimal"); 
+      decimalBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '+':
+      const plusBtn = document.querySelector(".plus"); 
+      plusBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '-':
+      const minusBtn = document.querySelector(".minus"); 
+      minusBtn.dispatchEvent(clickEvent); 
+      break; 
+    case '*':
+      const timesBtn = document.querySelector(".times"); 
+      timesBtn.dispatchEvent(clickEvent); 
+      break;
+    case '/':
+      const divideBtn = document.querySelector(".divide"); 
+      divideBtn.dispatchEvent(clickEvent); 
+      break;  
+    case '=':
+    case 'Enter':
+      const equalsBtn = document.querySelector(".equals"); 
+      equalsBtn.dispatchEvent(clickEvent); 
+      break; 
+  }
+}); 
 
 // SUBHANDLERS
 
@@ -125,17 +203,13 @@ function negativeSubhandler(event) {
 }
 
 function deleteSubhandler(event) {
-  if(overallInput.endsWith('+')||overallInput.endsWith('_')||overallInput.endsWith('*')||overallInput.endsWith('/')) {
-    const activeOperator = document.querySelector(".active.operator"); 
-    if(activeOperator) {
-      activeOperator.classList.remove("active"); 
+  if( !(overallInput.endsWith('+')||overallInput.endsWith('_')||overallInput.endsWith('*')||overallInput.endsWith('/')) ) {
+    if(overallInput) {
+      overallInput = overallInput.slice(0, overallInput.length-1);
     }
-  }
-  if(overallInput) {
-    overallInput = overallInput.slice(0, overallInput.length-1);
-  }
-  if(display.textContent) {
-    display.textContent = display.textContent.slice(0, display.textContent.length-1);
+    if(display.textContent) {
+      display.textContent = display.textContent.slice(0, display.textContent.length-1);
+    }
   }
 }
 

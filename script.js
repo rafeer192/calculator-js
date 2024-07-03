@@ -189,11 +189,15 @@ function decimalSubhandler(event) {
 function negativeSubhandler(event) {
   event.target.classList.toggle("chosen"); 
   if(event.target.classList.contains("chosen")) {
-    display.textContent = display.textContent.padStart(display.textContent.length+1, '-'); 
     if(!overallInput.includes('+')&&!overallInput.includes('_')&&!overallInput.includes('*')&&!overallInput.includes('/')) {
       overallInput = overallInput.padStart(overallInput.length+1, '-'); 
+      display.textContent = display.textContent.padStart(display.textContent.length+1, '-'); 
+    } else if(overallInput.endsWith('+')||overallInput.endsWith('_')||overallInput.endsWith('*')||overallInput.endsWith('/')) {
+      overallInput = overallInput.replace(operator, `${operator}-`); 
+      display.textContent = '-';
     } else {
       overallInput = overallInput.replace(operator, `${operator}-`); 
+      display.textContent = display.textContent.padStart(display.textContent.length+1, '-'); 
     }
   } 
   else {
